@@ -56,7 +56,7 @@ class DiscountFeeRule implements RuleContract
         if (! $discount) {
             return '0.00';
         } else {
-            return -number_format($discount, 2);
+            return number_format(-(float)$discount, 2);
         }
     }
 }

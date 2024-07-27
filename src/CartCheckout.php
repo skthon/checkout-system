@@ -2,13 +2,20 @@
 
 namespace App;
 
+use App\Models\Product;
 use App\Rules\DeliveryFeeRule;
 use App\Rules\DiscountFeeRule;
 
 class CartCheckout
 {
+    /**
+     * @var Product[] $cartItems
+     */
     private array $cartItems = [];
 
+    /**
+     * @param Product[] $products
+     */
     public function __construct(
         private readonly array $products,
         private readonly array $rules,
@@ -25,11 +32,17 @@ class CartCheckout
         }
     }
 
+    /**
+     * @return  Product[]
+     */
     public function getCartItems(): array
     {
         return $this->cartItems;
     }
 
+    /**
+     * @return  Product[]
+     */
     public function getProducts(): array
     {
         return $this->products;
@@ -64,7 +77,7 @@ class CartCheckout
 
         if (isset($this->rules['delivery_rules']) && $this->rules['delivery_rules'] instanceof DeliveryFeeRule) {
             $rule = $this->rules['delivery_rules'];
-            $subTotal = $productsTotal + ($priceBreakDown['DiscountTotal'] ?? 0);
+            $subTotal = (string) ((float) $productsTotal + (float) ($priceBreakDown['DiscountTotal'] ?? 0));
             $deliveryTotal = $rule->calculateTotal($this, $subTotal);
             $priceBreakDown['DeliveryFeeTotal'] = $deliveryTotal;
         }

@@ -2,8 +2,14 @@
 
 namespace App;
 
+use App\Models\Product;
+
 class ProductUtils
 {
+    /**
+     * @param Product[] $products An array of Product objects.
+     * @return array<string, int>
+     */
     public function getProductQuantities(array $products): array
     {
         $productQuantities = [];
@@ -16,6 +22,9 @@ class ProductUtils
         return $productQuantities;
     }
 
+    /**
+     * @param Product[] $products An array of Product objects.
+     */
     public function getProductsPriceTotal(array $products): string
     {
         $total = '0.00';
