@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+    checkout-system:
+        container_name: checkout-system
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        volumes:
+            - .:/checkout-system
+        tty: true
+        command: php -a
