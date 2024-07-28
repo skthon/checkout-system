@@ -22,9 +22,11 @@ class DeliveryFeeRule implements RuleContract
                 $subTotal,
                 $this->conditions[self::CHARGE_FEE_ON_PURCHASE_TOTAL]
             );
-        } else {
+        } else if (!empty($this->conditions)) {
             throw new \Exception('Unsupported condition exception');
         }
+
+        return '0.00';
     }
 
     private function getFeeBasedOnTotal(string $total, array $feeConditions): string

@@ -22,9 +22,11 @@ class DiscountFeeRule implements RuleContract
                 $cartCheckout,
                 $this->conditions[self::BUY_ONE_GET_SECOND_AS_DISCOUNT]
             );
+        } else if (!empty($this->conditions)) {
+            throw new \Exception('Unsupported condition exception');
         }
 
-        throw new \Exception('Unsupported condition exception');
+        return '0.00';
     }
 
     private function buyOneGetSecondAsDiscount(CartCheckout $cartCheckout, array $discountConditions): string
@@ -36,7 +38,7 @@ class DiscountFeeRule implements RuleContract
 
         $discount = 0;
         $discountedProducts = $discountConditions['discount_products'] ?? [];
-        $discountPercentage = $discountConditions['discount_percentage'] ?? [];
+        $discountPercentage = $discountConditions['discount_percentage'] ?? 0.0;
 
         foreach ($productsByQuantities as $code => $quantity) {
             if (! in_array($code, $discountedProducts)) {
