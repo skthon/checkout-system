@@ -49,7 +49,7 @@
   > composer phpstan-analyze
   ```
 
-## Project Notess
+## Project Notes
 ```
 src
 ├── Rules
